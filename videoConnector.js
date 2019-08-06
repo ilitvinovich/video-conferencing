@@ -1,4 +1,4 @@
-const generatedToken = 'cHJvdmlzaW9uAGlnb3Jlazk2YnlAZ21haWwuY29tQDQxMDEzYi52aWR5by5pbwA2MzczMjM5MDkxMQAAMmU0MzA4NjRiMjJkMThlY2MzMjZkY2E5ZjA5OTg3OTM0YjBjNzJhY2FmNmNlMDNiY2RmODFhOGVjYmRlNDViYzQzMGVlMmY3YjFmYTczODNkMmQ1Y2ZiNzI5NGRmMjMw';
+const generatedToken = 'cHJvdmlzaW9uAElnb3JANDEwMTNiLnZpZHlvLmlvADYzNzMyMjk1OTI4AABlYWE3YTM4YTM1NTIyNjUxMWI5ZjZhYzg2YWE4Mjk3NzY4NGUxMmQ1OWEyNDBjMzBiMGY5ODNkNTdlOWUyMGIxMDQ2MzMyOWM0NWU1ZmYyMzMxZjcxM2M5ZWRlYTg0Mzk=';
 
 setTimeout(() => {
     /* JavaScript Example: */
@@ -14,17 +14,17 @@ setTimeout(() => {
     }).then(function (vidyoConnector) {
         vidyoConnector.Connect({
             host: "prod.vidyo.io",
-            token: 'cHJvdmlzaW9uAHVzZXIxQDQxMDEzYi52aWR5by5pbwA2MzczMjI5Mjk2NgAAZWQyMDdhODg2NGJkZTkzNGM3NWI2YTNlNGRlNjI2NWZkYzk5MmEyZjVkNjQwMzA1OWRhNDc2N2M2YWMwZmY1YjVmMzE3MDVlMTQ2N2M2NTNmOTAzOTJlNDA0NzAzNDg1',
+            token: generatedToken,
             displayName: "John Smith",
             resourceId: "JohnSmithRoom",
             // Define handlers for connection events.
-            onSuccess: function () {/* Connected */ },
-            onFailure: function (reason) {/* Failed */ },
-            onDisconnected: function (reason) {/* Disconnected */ }
+            onSuccess: function () {console.log('You are connected!') },
+            onFailure: function (reason) {console.log('Your connection failed')},
+            onDisconnected: function (reason) {console.log('You are disconnected!') }
         }).then(function (status) {
             if (status) {
                 console.log("ConnectCall Success");
-                registerParticipants();
+                registerParticipants(vidyoConnector);
                 /* JavaScript Example: */
                 vidyoConnector.CycleCamera();
                 vidyoConnector.CycleMicrophone();
@@ -41,12 +41,12 @@ setTimeout(() => {
 }, 2000)
 
 
-function registerParticipants() {
+function registerParticipants(vidyoConnector) {
     /* JavaScript Example: */
     vidyoConnector.RegisterParticipantEventListener(
         {
-            onJoined: function (participant) { /* Participant Joined */ },
-            onLeft: function (participant) { /* Participant Left */ },
+            onJoined: function (participant) { console.log('Participant has joined!')},
+            onLeft: function (participant) { console.log('Participant has left!') },
             onDynamicChanged: function (participants) { /* Ordered array of participants according to rank */ },
             onLoudestChanged: function (participant, audioOnly) { /* Current loudest speaker */ }
         }).then(function () {
