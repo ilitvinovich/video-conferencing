@@ -24,6 +24,11 @@ setTimeout(() => {
         }).then(function (status) {
             if (status) {
                 console.log("ConnectCall Success");
+                registerParticipants();
+                /* JavaScript Example: */
+                vidyoConnector.CycleCamera();
+                vidyoConnector.CycleMicrophone();
+                vidyoConnector.CycleSpeaker();
             } else {
                 console.error("ConnectCall Failed");
             }
@@ -34,3 +39,19 @@ setTimeout(() => {
         console.error("CreateVidyoConnector Failed");
     });
 }, 2000)
+
+
+function registerParticipants() {
+    /* JavaScript Example: */
+    vidyoConnector.RegisterParticipantEventListener(
+        {
+            onJoined: function (participant) { /* Participant Joined */ },
+            onLeft: function (participant) { /* Participant Left */ },
+            onDynamicChanged: function (participants) { /* Ordered array of participants according to rank */ },
+            onLoudestChanged: function (participant, audioOnly) { /* Current loudest speaker */ }
+        }).then(function () {
+            console.log("RegisterParticipantEventListener Success");
+        }).catch(function () {
+            console.err("RegisterParticipantEventListener Failed");
+        });
+}
