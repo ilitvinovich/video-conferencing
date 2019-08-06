@@ -29,6 +29,7 @@ setTimeout(() => {
                 vidyoConnector.CycleCamera();
                 vidyoConnector.CycleMicrophone();
                 vidyoConnector.CycleSpeaker();
+                ShowRenderer(vidyoConnector);
             } else {
                 console.error("ConnectCall Failed");
             }
@@ -54,4 +55,9 @@ function registerParticipants(vidyoConnector) {
         }).catch(function () {
             console.err("RegisterParticipantEventListener Failed");
         });
+}
+
+function ShowRenderer(vidyoConnector) {
+    var rndr = document.getElementById('renderer');
+    vidyoConnector.ShowViewAt({viewId: "renderer", x: rndr.offsetLeft, y: rndr.offsetTop, width: rndr.offsetWidth, height: rndr.offsetHeight});
 }
